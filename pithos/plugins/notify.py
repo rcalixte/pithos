@@ -86,7 +86,7 @@ class NotifyPlugin(PithosPlugin):
             else:
                 icon = self._fallback_icon
 
-            notification.set_icon(icon)
+            notification.set_icon(Gio.Icon(icon))
             notification.add_button(N_('Skip'), 'app.next-song')
             self._app.send_notification(self._app_id, notification)
 
