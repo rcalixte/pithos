@@ -45,7 +45,7 @@ class NotifyPlugin(PithosPlugin):
         self.prepare_complete()
 
     def on_enable(self):
-        self._song_change_handler = self.window.connect('song-changed', self.send_notification)
+        self._song_notify_handler = self.window.connect('song-changed', self.send_notification)
         self._shutdown_handler = self._app.connect('shutdown', lambda app: app.withdraw_notification(self._app_id))
 
     def send_notification(self, window, *ignore):
@@ -59,7 +59,8 @@ class NotifyPlugin(PithosPlugin):
             song = window.current_song
             # This matches GNOME-Shell's format
             notification = Gio.Notification.new(song.artist)
-            # GNOME focuses the application by default, we want to match that behavior elsewhere such as on KDE.
+            # GNOME focuses the application by default,
+            # we want to match that behavior elsewhere such as on KDE.
             notification.set_default_action('app.activate')
             notification.set_body(song.title)
 
@@ -73,9 +74,8 @@ class NotifyPlugin(PithosPlugin):
                     icon = Gio.BytesIcon.new(icon_bytes[0])
                 elif is_flatpak():
                     icon_uri = Gio.File.new_for_path(song.artUrl[7:])
-                    icon_bytes, _ = icon_uri.load_bytes(None)
+                    icon_bytes, *_ = icon_uri.load_bytes(None)
                     icon = Gio.BytesIcon.new(icon_bytes)
-                    print('it got here.')
                 else:
                     icon_uri = Gio.File.new_for_uri(song.artUrl)
                     icon = Gio.FileIcon.new(icon_uri)
@@ -88,9 +88,9 @@ class NotifyPlugin(PithosPlugin):
 
     def on_disable(self):
         self._app.withdraw_notification(self._app_id)
-        if self._song_change_handler:
-            self.window.disconnect(self._song_change_handler)
-            self._song_change_handler = 0
+        if self._song_notify_handler:
+            self.window.disconnect(self._song_notify_handler)
+            self._song_notify_handler = 0
         if self._shutdown_handler:
             self._app.disconnect(self._shutdown_handler)
             self._shutdown_handler = 0
