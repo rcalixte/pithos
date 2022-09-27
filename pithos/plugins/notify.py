@@ -46,7 +46,7 @@ class NotifyPlugin(PithosPlugin):
         self.prepare_complete()
 
     def on_enable(self):
-        self._song_change_handler = self.window.connect('song-changed', self.send_notification)
+        self._song_notify_handler = self.window.connect('song-changed', self.send_notification)
         self._shutdown_handler = self._app.connect('shutdown', lambda app: app.withdraw_notification(self._app_id))
 
     def send_notification(self, window, *ignore):
@@ -92,9 +92,9 @@ class NotifyPlugin(PithosPlugin):
 
     def on_disable(self):
         self._app.withdraw_notification(self._app_id)
-        if self._song_change_handler:
-            self.window.disconnect(self._song_change_handler)
-            self._song_change_handler = 0
+        if self._song_notify_handler:
+            self.window.disconnect(self._song_notify_handler)
+            self._song_notify_handler = 0
         if self._shutdown_handler:
             self._app.disconnect(self._shutdown_handler)
             self._shutdown_handler = 0
