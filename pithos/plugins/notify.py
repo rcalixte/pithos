@@ -60,7 +60,7 @@ class NotifyPlugin(PithosPlugin):
             song = window.current_song
             N_ = gettext.gettext
             # This matches GNOME-Shell's format
-            notification = Gio.Notification.new(song.artist)
+            notification = Gio.Notification.new(title=song.artist)
             # GNOME focuses the application by default,
             # we want to match that behavior elsewhere such as on KDE.
             notification.set_default_action('app.activate')
@@ -75,18 +75,20 @@ class NotifyPlugin(PithosPlugin):
                     icon_bytes = icon_uri.load_bytes(None)
                     icon = Gio.BytesIcon.new(icon_bytes[0])
                 elif is_flatpak():
-                    icon_uri = Gio.File.new_for_uri(song.artUrl)
+                    icon_uri = Gio.File.new_for_uri(uri=song.artUrl)
                     icon_bytes, _ = icon_uri.load_bytes(None)
                     del _
                     icon = Gio.BytesIcon.new(icon_bytes)
                     #icon = Gio.ThemedIcon.new(song.artUrl)
+                    icon_path = Gio.File.new_for_path(song.artUrl[7:])
+                    icon = Gio.FileIcon.new(icon_path)
                 else:
                     icon_uri = Gio.File.new_for_uri(song.artUrl)
                     icon = Gio.FileIcon.new(icon_uri)
             else:
                 icon = self._fallback_icon
 
-            notification.set_icon(Gio.Icon(icon))
+            notification.set_icon(icon)
             notification.add_button(N_('Skip'), 'app.next-song')
             self._app.send_notification(self._app_id, notification)
 
