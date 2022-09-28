@@ -16,6 +16,8 @@ import gettext
 import os
 
 from gi.repository import Gio
+
+gi.require_version('Notify', '0.7')
 from gi.repository import Notify
 
 from pithos.plugin import PithosPlugin
