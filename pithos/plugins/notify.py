@@ -16,7 +16,7 @@ import gettext
 import os
 
 from gi.repository import Gio
-from gi.repository import GLib
+from gi.repository import Notify
 
 from pithos.plugin import PithosPlugin
 from pithos.util import is_flatpak
@@ -82,6 +82,9 @@ class NotifyPlugin(PithosPlugin):
                     print(f'{icon=}')
                     icon = Gio.Icon.new_for_string(song.artUrl[:6] + song.artUrl[7:])
                     #icon = Gio.ThemedIcon.new(song.artUrl)
+                    Notify.init(os.environ['FLATPAK_ID'])
+                    notifier = Notify.Notification.new(song.artist, song.title, song.artist[7:])
+                    notifier.show()
                 else:
                     icon_uri = Gio.File.new_for_uri(song.artUrl)
                     icon = Gio.FileIcon.new(icon_uri)
