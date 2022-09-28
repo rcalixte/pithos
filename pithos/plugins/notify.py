@@ -16,6 +16,7 @@ import gettext
 import os
 
 from gi.repository import Gio
+from gi.repository import GLib
 
 from pithos.plugin import PithosPlugin
 from pithos.util import is_flatpak
@@ -70,7 +71,6 @@ class NotifyPlugin(PithosPlugin):
             #        otherwise notifications do not work
             if song.artUrl:
                 print(f'{song.artUrl=}')
-                print(f'{os.environ=}')
                 if self._gnome_flatpak_env:
                     icon_uri = Gio.File.new_for_uri(song.artUrl)
                     icon_bytes = icon_uri.load_bytes(None)
@@ -79,10 +79,8 @@ class NotifyPlugin(PithosPlugin):
                     icon_uri = Gio.File.new_for_uri(uri=song.artUrl)
                     icon_bytes, _ = icon_uri.load_bytes(None)
                     del _
-                    icon = Gio.BytesIcon.new(icon_bytes)
+                    icon = Gio.BytesIcon.new(GLib.Bytes.new(icon_bytes))
                     #icon = Gio.ThemedIcon.new(song.artUrl)
-                    icon_path = Gio.File.new_for_path(song.artUrl[7:])
-                    icon = Gio.FileIcon.new(icon_path)
                 else:
                     icon_uri = Gio.File.new_for_uri(song.artUrl)
                     icon = Gio.FileIcon.new(icon_uri)
