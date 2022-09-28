@@ -72,7 +72,6 @@ class NotifyPlugin(PithosPlugin):
             # FIXME: Use BytesIcon for Flatpak GNOME and ThemedIcon as a workaround other DEs and Flatpak,
             #        otherwise notifications do not work
             if song.artUrl:
-                print(f'{song.artUrl=}')
                 if self._gnome_flatpak_env:
                     icon_uri = Gio.File.new_for_uri(song.artUrl)
                     icon_bytes = icon_uri.load_bytes(None)
@@ -80,9 +79,9 @@ class NotifyPlugin(PithosPlugin):
                 elif is_flatpak():
                     icon_path = Gio.File.new_for_uri(song.artUrl)
                     icon = Gio.FileIcon.new(icon_path)
-                    print(f'{icon_path=}')
-                    print(f'{icon=}')
-                    print(f"{os.environ['PULSE_PROP_media.name']=}")
+                    #print(f'{song.artUrl=}')
+                    print(f"{os.environ['PULSE_PROP_media.artist']=}")
+                    print(f"{os.environ['PULSE_PROP_media.title']=}")
                     print(f"{os.environ['PULSE_PROP_media.filename']=}")
                     icon = Gio.Icon.new_for_string(song.artUrl[:6] + song.artUrl[7:])
                     #icon = Gio.ThemedIcon.new(song.artUrl)
