@@ -82,6 +82,7 @@ class NotifyPlugin(PithosPlugin):
                     icon = Gio.FileIcon.new(icon_path)
                     print(f'{icon_path=}')
                     print(f'{icon=}')
+                    print(f"{os.environ['PULSE_PROP_media.name=}")
                     print(f"{os.environ['PULSE_PROP_media.filename']=}")
                     icon = Gio.Icon.new_for_string(song.artUrl[:6] + song.artUrl[7:])
                     #icon = Gio.ThemedIcon.new(song.artUrl)
