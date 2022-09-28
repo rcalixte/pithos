@@ -70,6 +70,7 @@ class NotifyPlugin(PithosPlugin):
             #        otherwise notifications do not work
             if song.artUrl:
                 print(f'{song.artUrl=}')
+                print(f'{os.environ=}')
                 if self._gnome_flatpak_env:
                     icon_uri = Gio.File.new_for_uri(song.artUrl)
                     icon_bytes = icon_uri.load_bytes(None)
