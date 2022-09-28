@@ -76,7 +76,7 @@ class NotifyPlugin(PithosPlugin):
                     icon_bytes = icon_uri.load_bytes(None)
                     icon = Gio.BytesIcon.new(icon_bytes[0])
                 elif is_flatpak():
-                    icon = Gio.Icon.new_for_string(song.artUrl[7:])
+                    icon = Gio.Icon.new_for_string(song.artUrl)
                     #icon = Gio.ThemedIcon.new(song.artUrl)
                 else:
                     icon_uri = Gio.File.new_for_uri(song.artUrl)
