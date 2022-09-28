@@ -85,7 +85,7 @@ class NotifyPlugin(PithosPlugin):
                     icon = Gio.Icon.new_for_string(song.artUrl[:6] + song.artUrl[7:])
                     #icon = Gio.ThemedIcon.new(song.artUrl)
                     Notify.init(os.environ['FLATPAK_ID'])
-                    notifier = Notify.Notification.new(song.artist, song.title, song.artist[7:])
+                    notifier = Notify.Notification.new(song.artist, song.title, song.artist)
                     notifier.show()
                 else:
                     icon_uri = Gio.File.new_for_uri(song.artUrl)
