@@ -14,14 +14,14 @@
 
 import gettext
 import os
-
-from gi.repository import Gio
-
-gi.require_version('Notify', '0.7')
-from gi.repository import Notify
+import gi
 
 from pithos.plugin import PithosPlugin
 from pithos.util import is_flatpak
+
+from gi.repository import Gio
+from gi.repository import Notify
+gi.require_version('Notify', '0.7')
 
 
 class NotifyPlugin(PithosPlugin):
