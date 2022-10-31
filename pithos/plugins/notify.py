@@ -20,8 +20,6 @@ from pithos.plugin import PithosPlugin
 from pithos.util import is_flatpak
 
 from gi.repository import Gio
-gi.require_version('Notify', '0.7')
-from gi.repository import Notify
 
 
 class NotifyPlugin(PithosPlugin):
@@ -85,9 +83,9 @@ class NotifyPlugin(PithosPlugin):
                     print(f"{os.environ['PULSE_PROP_media.filename']=}")
                     icon = Gio.Icon.new_for_string(song.artUrl[:6] + song.artUrl[7:])
                     #icon = Gio.ThemedIcon.new(song.artUrl)
-                    Notify.init(os.environ['FLATPAK_ID'])
-                    notifier = Notify.Notification.new(song.artist, song.title, song.artist)
-                    notifier.show()
+                    icon_uri = Gio.File.new_for_uri(song.artUrl)
+                    icon_bytes = icon_uri.load_bytes(None)
+                    icon = Gio.BytesIcon.new(icon_bytes[0])
                 else:
                     icon_uri = Gio.File.new_for_uri(song.artUrl)
                     icon = Gio.FileIcon.new(icon_uri)
