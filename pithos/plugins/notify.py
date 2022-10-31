@@ -84,8 +84,7 @@ class NotifyPlugin(PithosPlugin):
                     icon = Gio.Icon.new_for_string(song.artUrl[:6] + song.artUrl[7:])
                     #icon = Gio.ThemedIcon.new(song.artUrl)
                     icon_uri = Gio.File.new_for_uri(song.artUrl)
-                    icon_bytes = icon_uri.load_bytes(None)
-                    icon = Gio.BytesIcon.new(icon_bytes[0])
+                    icon = Gio.FileIcon.new(icon_uri)
                 else:
                     icon_uri = Gio.File.new_for_uri(song.artUrl)
                     icon = Gio.FileIcon.new(icon_uri)
