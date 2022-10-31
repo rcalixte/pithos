@@ -81,9 +81,6 @@ class NotifyPlugin(PithosPlugin):
                     print(f"{os.environ['PULSE_PROP_media.filename']=}")
                     icon_uri = Gio.File.new_for_uri(song.artUrl)
                     icon = Gio.FileIcon.new(icon_uri)
-                    icon_uri = Gio.File.new_for_uri(song.artUrl)
-                    icon_bytes = icon_uri.load_bytes(None)
-                    icon = Gio.BytesIcon.new(icon_bytes[0])
                 else:
                     icon_uri = Gio.File.new_for_uri(song.artUrl)
                     icon = Gio.FileIcon.new(icon_uri)
