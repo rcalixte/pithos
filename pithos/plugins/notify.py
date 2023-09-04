@@ -59,7 +59,6 @@ class NotifyPlugin(PithosPlugin):
             self._app.withdraw_notification(self._app_id)
         else:
             song = window.current_song
-            N_ = gettext.gettext
             # This matches GNOME-Shell's format
             notification = Gio.Notification.new(title=song.artist)
             # GNOME focuses the application by default,
@@ -91,7 +90,7 @@ class NotifyPlugin(PithosPlugin):
                 icon = self._fallback_icon
 
             notification.set_icon(icon)
-            notification.add_button_with_target(N_('Skip'), 'app.next-song')
+            notification.add_button_with_target(_('Skip'), 'app.next-song')
             self._app.send_notification(self._app_id, notification)
 
     def on_disable(self):
