@@ -42,7 +42,7 @@ class NotifyPlugin(PithosPlugin):
         self._app = Gio.Application.get_default()
         self._app_id = self._app.get_application_id()
         self._fallback_icon = Gio.ThemedIcon.new('audio-x-generic')
-        self.preferences_dialog = NotifyPluginPrefsDialog(self.window, self.settings)
+        self.preferences_dialog = NotifyPluginPrefsWindow(self.window, self.settings)
         self.prepare_complete()
 
     def on_enable(self):
@@ -103,14 +103,12 @@ class NotifyPlugin(PithosPlugin):
             self._shutdown_handler = 0
 
 
-class NotifyPluginPrefsDialog(Gtk.Dialog):
-    __gtype_name__ = 'NotifyPluginPrefsDialog'
+class NotifyPluginPrefsWindow(Gtk.Window):
+    __gtype_name__ = 'NotifyPluginPrefsWindow'
 
     def __init__(self, window, settings):
-        super().__init__(use_header_bar=1)
-        self.set_title(_('Notification Preferences'))
-        self.set_default_size(300, -1)
-        self.set_resizable(False)
+        super().__init__(title='Notification Preferences', use_header_bar=1, resizable=False,
+                         default_height=-1, default_width=300)
         self.connect('delete-event', self.on_close)
 
         self.pithos = window
@@ -132,9 +130,7 @@ class NotifyPluginPrefsDialog(Gtk.Dialog):
         self.switch.set_valign(Gtk.Align.CENTER)
         box.pack_end(self.switch, False, False, 2)
 
-        content_area = self.get_content_area()
-        content_area.add(box)
-        content_area.show_all()
+        self.add(box)
 
     def on_close(self, window, event):
         window.hide()
