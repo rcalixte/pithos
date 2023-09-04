@@ -121,6 +121,7 @@ class NotifyPluginPrefsDialog(Gtk.Dialog):
         label = Gtk.Label()
         label.set_markup('<b>{}</b>\n'.format(_('Show Album Info')))
         label.set_halign(Gtk.Align.START)
+        label.set_valign(Gtk.Align.CENTER)
         box.pack_start(label, True, True, 4)
 
         self.switch = Gtk.Switch()
