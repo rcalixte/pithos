@@ -107,7 +107,7 @@ class NotifyPluginPrefsWindow(Gtk.Window):
     __gtype_name__ = 'NotifyPluginPrefsWindow'
 
     def __init__(self, window, settings):
-        super().__init__(title='Notification Preferences', use_header_bar=1, resizable=False,
+        super().__init__(title='Notification Preferences', resizable=False,
                          default_height=-1, default_width=300)
         self.connect('delete-event', self.on_close)
 
