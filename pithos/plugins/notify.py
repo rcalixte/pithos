@@ -117,9 +117,9 @@ class NotifyPluginPrefsDialog(Gtk.Dialog):
         self.settings = settings
         self.show_album = self.settings['data'] == 'True' if self.settings['data'] else False
 
-        box = Gtk.Box()
+        box = Gtk.Box(spacing=6)
         label = Gtk.Label()
-        label.set_markup('<b>{}</b>\n{}'.format(_('Show Album Info'), None))
+        label.set_markup('<b>{}</b>\n'.format(_('Show Album Info')))
         label.set_halign(Gtk.Align.START)
         box.pack_start(label, True, True, 4)
 
@@ -131,9 +131,7 @@ class NotifyPluginPrefsDialog(Gtk.Dialog):
         self.switch.set_valign(Gtk.Align.CENTER)
         box.pack_end(self.switch, False, False, 2)
 
-        content_area = self.get_content_area()
-        content_area.add(box)
-        content_area.show_all()
+        self.add(box)
 
     def on_close(self, window, event):
         window.hide()
