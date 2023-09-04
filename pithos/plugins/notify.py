@@ -131,7 +131,9 @@ class NotifyPluginPrefsDialog(Gtk.Dialog):
         self.switch.set_valign(Gtk.Align.CENTER)
         box.pack_end(self.switch, False, False, 2)
 
-        self.add(box)
+        content_area = self.get_content_area()
+        content_area.add(box)
+        content_area.show_all()
 
     def on_close(self, window, event):
         window.hide()
